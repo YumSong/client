@@ -4,4 +4,40 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <filter>
+  	<filter-name>EncodiongFilter</filter-name>
+  	<display-name>EncodiongFilter</display-name>
+  	<description></description>
+  	<filter-class>com.lames.client.filter.EncodiongFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>EncodiongFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <servlet>
+  	<servlet-name>ShopListServlet</servlet-name>
+  	<display-name>ShopListServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.lames.client.servlet.ShopListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ShopListServlet</servlet-name>
+  	<url-pattern>/ShopListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>default</servlet-name>
+      <url-pattern>*.jpg</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+      <servlet-name>default</servlet-name>
+    <url-pattern>*.js</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.css</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.txt</url-pattern>
+  </servlet-mapping>
 </web-app>
