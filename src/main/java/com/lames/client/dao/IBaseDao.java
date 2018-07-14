@@ -1,5 +1,7 @@
 package com.lames.client.dao;
 
-public interface IBaseDao {
+import java.util.List;
+
+public interface IBaseDao<Entity> {
 
 }
