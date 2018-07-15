@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.Query;
+
+
 import com.lames.client.dao.IRecipeDao;
 import com.lames.client.model.RecipeEntity;
 import com.lames.client.utils.DbPoolUtils;
@@ -27,6 +30,7 @@ public class RecipeDaoImpl extends BaseDaoImpl<RecipeEntity> implements IRecipeD
 		// ,price number --菜品的價格
 		// ,shop_id number --店鋪的ID
 		// );
+		Connection connection= DbPoolUtils.getConnection();
 		String sql = "select re_id,re_name,re_pic,detail,price,shop_id from recipe";
 		PreparedStatement ps = null;
 		ResultSet re = null;
@@ -35,9 +39,51 @@ public class RecipeDaoImpl extends BaseDaoImpl<RecipeEntity> implements IRecipeD
 			ps = connection.prepareStatement(sql);
 			re = ps.executeQuery();
 			while (re.next()) {
-				RecipeEntity recipe = new RecipeEntity(re.getInt(1), re.getString(2), re.getString(3), re.getString(4),
-						re.getInt(5), re.getInt(6));
+				RecipeEntity recipe = new RecipeEntity(re.getInt(1), re.getString(2), 
+														re.getString(3), re.getString(4),
+														re.getInt(5), re.getInt(6));				
 				list.add(recipe);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				re.close();
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+	public List<RecipeEntity> findByShopId(int shopid) {
+		// TODO Auto-generated method stub
+		String sql = "select re_id,re_name,re_pic,detail,price,shop_id from recipe where shop_id=?";
+		PreparedStatement ps = null;
+		ResultSet re = null;
+		List<RecipeEntity> list = new ArrayList<RecipeEntity>();
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, shopid);
+			re = ps.executeQuery();
+			while (re.next()) {
+				
+//				RecipeEntity recipe = new RecipeEntity(re.getInt(1), re.getString(2), re.getString(3), re.getString(4),
+//						re.getInt(5), re.getInt(6));
+//				list.add(recipe);
+				RecipeEntity recipe = new RecipeEntity();
+				recipe.setReId(re.getInt(1));
+				recipe.setReName(re.getString(2));
+				recipe.setRePic(re.getString(3));
+				recipe.setDetail(re.getString(4));
+				recipe.setPrice(re.getInt(5));
+				recipe.setShopId(re.getInt(6));
+				list.add(recipe);
+				
 			}
 			re.close();
 			return list;
@@ -52,5 +98,6 @@ public class RecipeDaoImpl extends BaseDaoImpl<RecipeEntity> implements IRecipeD
 				e.printStackTrace();
 			}
 		}
+		
 	}
 }

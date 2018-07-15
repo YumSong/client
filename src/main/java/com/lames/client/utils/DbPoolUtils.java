@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class DbPoolUtils {
 
 	public static final String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	public static final String username = "tony";
+	public static final String username = "system";
 	public static final String password = "123456";
 	public static final String driverClassName = "oracle.jdbc.OracleDriver";
 	public static BasicDataSource ds;

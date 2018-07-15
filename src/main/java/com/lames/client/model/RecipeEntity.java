@@ -35,7 +35,7 @@ public class RecipeEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "RecipeEntity [reId=" + reId + ", reName=" + reName + ", rePic=" + rePic + ", detail=" + detail
-				+ ", price=" + price + ", shopId=" + shopId + "]";
+				+ ", price=" + price + ", shopId=" + shopId + "]\n";
 	}
 
 	public Integer getReId() {
