@@ -24,6 +24,36 @@ public class ShopEntity implements Serializable {
 	private String shopPic;
 	private String businessPic;
 	private String address;
+	private String introduction;
+	
+
+	public ShopEntity() {
+	}
+
+	public ShopEntity(Integer shopid, String shopName, long serviceStarttime, long serviceEndtime,
+			Integer serviceRangeNumber, Integer distributionCost, String shopPic, String businessPic, String address,String introduction) {
+		super();
+		this.shopid = shopid;
+		this.shopName = shopName;
+		this.serviceStarttime = serviceStarttime;
+		this.serviceEndtime = serviceEndtime;
+		this.serviceRangeNumber = serviceRangeNumber;
+		this.distributionCost = distributionCost;
+		this.shopPic = shopPic;
+		this.businessPic = businessPic;
+		this.address = address;
+		this.introduction=introduction;
+	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "ShopEntity [shopid=" + shopid + ", shopName=" + shopName + ", serviceStarttime=" + serviceStarttime
+				+ ", serviceEndtime=" + serviceEndtime + ", serviceRangeNumber=" + serviceRangeNumber
+				+ ", distributionCost=" + distributionCost + ", shopPic=" + shopPic + ", businessPic=" + businessPic
+				+ ", address=" + address + ", introduction=" + introduction + "]";
+	}
 
 	@Override
 	public int hashCode() {
@@ -32,6 +62,7 @@ public class ShopEntity implements Serializable {
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((businessPic == null) ? 0 : businessPic.hashCode());
 		result = prime * result + ((distributionCost == null) ? 0 : distributionCost.hashCode());
+		result = prime * result + ((introduction == null) ? 0 : introduction.hashCode());
 		result = prime * result + (int) (serviceEndtime ^ (serviceEndtime >>> 32));
 		result = prime * result + ((serviceRangeNumber == null) ? 0 : serviceRangeNumber.hashCode());
 		result = prime * result + (int) (serviceStarttime ^ (serviceStarttime >>> 32));
@@ -65,6 +96,11 @@ public class ShopEntity implements Serializable {
 				return false;
 		} else if (!distributionCost.equals(other.distributionCost))
 			return false;
+		if (introduction == null) {
+			if (other.introduction != null)
+				return false;
+		} else if (!introduction.equals(other.introduction))
+			return false;
 		if (serviceEndtime != other.serviceEndtime)
 			return false;
 		if (serviceRangeNumber == null) {
@@ -90,33 +126,6 @@ public class ShopEntity implements Serializable {
 		} else if (!shopid.equals(other.shopid))
 			return false;
 		return true;
-	}
-
-	public ShopEntity() {
-	}
-
-	public ShopEntity(Integer shopid, String shopName, long serviceStarttime, long serviceEndtime,
-			Integer serviceRangeNumber, Integer distributionCost, String shopPic, String businessPic, String address) {
-		super();
-		this.shopid = shopid;
-		this.shopName = shopName;
-		this.serviceStarttime = serviceStarttime;
-		this.serviceEndtime = serviceEndtime;
-		this.serviceRangeNumber = serviceRangeNumber;
-		this.distributionCost = distributionCost;
-		this.shopPic = shopPic;
-		this.businessPic = businessPic;
-		this.address = address;
-	}
-
-	
-
-	@Override
-	public String toString() {
-		return "ShopEntity [shopid=" + shopid + ", shopName=" + shopName + ", serviceStarttime=" + serviceStarttime
-				+ ", serviceEndtime=" + serviceEndtime + ", serviceRangeNumber=" + serviceRangeNumber
-				+ ", distributionCost=" + distributionCost + ", shopPic=" + shopPic + ", businessPic=" + businessPic
-				+ ", address=" + address + "]";
 	}
 
 	public Integer getshopid() {
@@ -190,5 +199,15 @@ public class ShopEntity implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+	
+	
 
 }

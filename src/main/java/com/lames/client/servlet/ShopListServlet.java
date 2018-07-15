@@ -40,7 +40,7 @@ public class ShopListServlet extends HttpServlet {
 		ShopEntity hotShop = shopList.get((random.nextInt(shopList.size())));
 		request.setAttribute("list", shopList);
 		request.setAttribute("hotShop", hotShop);
-		request.getRequestDispatcher("result.jsp").forward(request,response);
+		request.getRequestDispatcher("shops.jsp").forward(request,response);
 	}
 
 	/**

@@ -15,7 +15,7 @@ public class ShopDaoImpl extends BaseDaoImpl<ShopEntity> implements IShopDao {
 
 	public List<ShopEntity> findAll() {
 		Connection connection = DbPoolUtils.getConnection();
-		String sql = "select shop_id,shop_name,service_starttime,service_endtime,serviec_range,distribution_cost,shop_pic,business_pic,address from shop";
+		String sql = "select shop_id,shop_name,service_starttime,service_endtime,serviec_range,distribution_cost,shop_pic,business_pic,address,introduction from shop";
 		PreparedStatement ps = null;
 		ResultSet re = null;
 		List<ShopEntity> list = new ArrayList<ShopEntity>();
@@ -24,7 +24,7 @@ public class ShopDaoImpl extends BaseDaoImpl<ShopEntity> implements IShopDao {
 			re = ps.executeQuery();
 			while (re.next()) {
 				ShopEntity shop = new ShopEntity(re.getInt(1), re.getString(2), re.getDate(3).getTime(), re.getDate(4).getTime(),
-						re.getInt(5), re.getInt(6), re.getString(7), re.getString(8), re.getString(9));
+						re.getInt(5), re.getInt(6), re.getString(7), re.getString(8), re.getString(9),re.getString(10));
 				list.add(shop);
 			}
 			re.close();
