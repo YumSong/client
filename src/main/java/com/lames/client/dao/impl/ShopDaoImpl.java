@@ -12,13 +12,9 @@ import com.lames.client.model.ShopEntity;
 import com.lames.client.utils.DbPoolUtils;
 
 public class ShopDaoImpl extends BaseDaoImpl<ShopEntity> implements IShopDao {
-	private Connection connection = null;
-
-	public ShopDaoImpl() throws SQLException {
-		connection = DbPoolUtils.getConnection();
-	}
 
 	public List<ShopEntity> findAll() {
+		Connection connection = DbPoolUtils.getConnection();
 		String sql = "select shop_id,shop_name,service_starttime,service_endtime,serviec_range,distribution_cost,shop_pic,business_pic,address from shop";
 		PreparedStatement ps = null;
 		ResultSet re = null;

@@ -16,12 +16,7 @@ public class RecipeServiceImpl implements IRecipeService{
 	
 
 	public RecipeServiceImpl() {
-		try {
-			recipeDao = new RecipeDaoImpl();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		recipeDao = new RecipeDaoImpl();
 	}
 
 	public List<RecipeEntity> listRecipe() {

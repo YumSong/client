@@ -2,6 +2,7 @@ package com.lames.client.servlet;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,12 +35,12 @@ public class ShopListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("start ShopListServlet");
 		List<ShopEntity> shopList = shopService.listShop();
+		Random random = new Random();
+		ShopEntity hotShop = shopList.get((random.nextInt(shopList.size())));
 		request.setAttribute("list", shopList);
+		request.setAttribute("hotShop", hotShop);
 		request.getRequestDispatcher("result.jsp").forward(request,response);
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

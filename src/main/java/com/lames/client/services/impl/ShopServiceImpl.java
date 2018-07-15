@@ -16,12 +16,7 @@ public class ShopServiceImpl implements IShopService {
 	private IShopDao shopDao;
 
 	public ShopServiceImpl() {
-		try {
-			shopDao = new ShopDaoImpl();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		shopDao = new ShopDaoImpl();
 	}
 
 	public List<ShopEntity> listShop() {

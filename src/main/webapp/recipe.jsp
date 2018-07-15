@@ -18,16 +18,16 @@
 			<td>PICTURE</td>
 			<td>DETAIL</td>
 			<td>PRICE</td>
-			
+			<td>return</td>
 		</tr>
-		<c:forEach items="${recipeList }" var="recipe">
+		<c:forEach items="${recipeList}" var="recipe">
 			<tr>
 				<td>${recipe.reId }</td>
 				<td>${recipe.reName }</td>
 				<td><img alt="" src="${recipe.rePic}"></td>
 				<td>${recipe.detail }</td>
 				<td>${recipe.price }</td>
-				
+				<td><a href="#" onclick="javascript:history.back(-1);">返回到上一页</a></td>
 			</tr>
 		</c:forEach>
 	</table>

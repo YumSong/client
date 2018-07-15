@@ -15,21 +15,11 @@ import com.lames.client.model.RecipeEntity;
 import com.lames.client.utils.DbPoolUtils;
 
 public class RecipeDaoImpl extends BaseDaoImpl<RecipeEntity> implements IRecipeDao {
-	private Connection connection = null;
 
-	public RecipeDaoImpl() throws SQLException {
-		connection = DbPoolUtils.getConnection();
+	public RecipeDaoImpl() {
 	}
 
 	public List<RecipeEntity> findAll() {
-		// create table recipe(
-		// re_id NUMBER PRIMARY KEY --菜品id
-		// ,re_name NVARCHAR2(255) --菜品的名字
-		// ,re_pic NVARCHAR2(255) --圖片的url
-		// ,detail NVARCHAR2(255) --菜品的介紹
-		// ,price number --菜品的價格
-		// ,shop_id number --店鋪的ID
-		// );
 		Connection connection= DbPoolUtils.getConnection();
 		String sql = "select re_id,re_name,re_pic,detail,price,shop_id from recipe";
 		PreparedStatement ps = null;
@@ -44,6 +34,8 @@ public class RecipeDaoImpl extends BaseDaoImpl<RecipeEntity> implements IRecipeD
 														re.getInt(5), re.getInt(6));				
 				list.add(recipe);
 			}
+			re.close();
+			connection.close();
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -61,6 +53,7 @@ public class RecipeDaoImpl extends BaseDaoImpl<RecipeEntity> implements IRecipeD
 
 
 	public List<RecipeEntity> findByShopId(int shopid) {
+		Connection connection= DbPoolUtils.getConnection();
 		// TODO Auto-generated method stub
 		String sql = "select re_id,re_name,re_pic,detail,price,shop_id from recipe where shop_id=?";
 		PreparedStatement ps = null;
@@ -86,6 +79,7 @@ public class RecipeDaoImpl extends BaseDaoImpl<RecipeEntity> implements IRecipeD
 				
 			}
 			re.close();
+			connection.close();
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
