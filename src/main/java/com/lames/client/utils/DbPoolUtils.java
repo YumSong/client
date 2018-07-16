@@ -19,11 +19,32 @@ public class DbPoolUtils {
 
 	static {
 		ds = new BasicDataSource();
-		ds.setDriverClassName(driverClassName);
-		ds.setUrl(url);
-		ds.setUsername(username);
-		ds.setPassword(password);
-
+		String driverClassNameProperty = PropertiesUtils.getProperty("driverClassName");
+		String urlProperty = PropertiesUtils.getProperty("url");
+		String usernameProperty = PropertiesUtils.getProperty("username");
+		String passwordProperty = PropertiesUtils.getProperty("password");
+		if (driverClassNameProperty != null) {
+			ds.setDriverClassName(driverClassNameProperty);
+		}else {
+			ds.setDriverClassName(driverClassName);
+		}
+		if (urlProperty != null) {
+			ds.setUrl(urlProperty);
+		}else {
+			ds.setUrl(url);
+		}
+		if (usernameProperty != null) {
+			ds.setUsername(usernameProperty);
+		}else {
+			ds.setUsername(username);
+		}
+		if (driverClassNameProperty != null) {
+			ds.setPassword(passwordProperty);
+		}else {
+			ds.setPassword(password);
+		}
+		
+		
 		ds.setInitialSize(20);
 		ds.setMinIdle(30);
 		ds.setMaxIdle(1000);
