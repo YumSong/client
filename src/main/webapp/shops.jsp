@@ -1,6 +1,8 @@
+<%@page import="com.lames.client.utils.PropertiesUtils"%>
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ page isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<% String imageRootPath = PropertiesUtils.getProperty("image.server"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,7 +91,7 @@
 				</div>
 				<div class="col-md-5 events-bottom1 animated wow fadeInUp"
 					data-wow-duration="1000ms" data-wow-delay="500ms">
-					<a href="http://localhost:9090/client/RecipeListServlet?shopid=${hotShop.shopid}"><img src="${hotShop.shopPic}" alt=""
+					<a href="http://localhost:9090/client/RecipeListServlet?shopid=${hotShop.shopid}"><img src="<%=imageRootPath %>${hotShop.shopPic}" alt=""
 						class="img-responsive"></a>
 				</div>
 				<div class="clearfix"></div>
@@ -101,7 +103,7 @@
 							data-wow-duration="1000ms" data-wow-delay="500ms">
 							<a
 								href="http://localhost:9090/client/RecipeListServlet?shopid=${shop.shopid}"><img
-								src="${shop.shopPic}" alt="" class="img-responsive"></a>
+								src="<%=imageRootPath %>${shop.shopPic}" alt="" class="img-responsive"></a>
 						</div>
 						<div class="col-md-7 events-bottom2 animated wow fadeInLeft"
 							data-wow-duration="1000ms" data-wow-delay="500ms">

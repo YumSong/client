@@ -41,6 +41,11 @@ public class EncodiongFilter implements Filter {
 		HttpServletResponse httpresponse = (HttpServletResponse) response;
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
+		String ctxPath = httprequest.getContextPath();  
+		String currentURL = httprequest.getRequestURI();
+		if(currentURL.contains(".jsp")) {
+			httpresponse.sendRedirect(ctxPath);
+		}
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
 	}

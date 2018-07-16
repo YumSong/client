@@ -1,6 +1,8 @@
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ page isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="com.lames.client.utils.PropertiesUtils"%>
+<%! String imageRootPath = PropertiesUtils.getProperty("image.server"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,29 +19,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
 <script type="application/x-javascript">
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
-
-
-
-
-
-
-
-
-
-
-
 </script>
 <!---->
 <link
@@ -108,7 +88,7 @@
 				<c:forEach items="${recipeList}" var="recipe">
 					<div class="col-md-4 menu-bottom1">
 						<div class="btm-right">
-							<img src="${recipe.rePic}" alt="" class="img-responsive">
+							<img src="<%=imageRootPath %>${recipe.rePic}" alt="" class="img-responsive">
 							<div class="captn">
 								<h4>${recipe.reName }</h4>
 								<p>$${recipe.price }</p>
