@@ -2,7 +2,9 @@
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ page isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<% String imageRootPath = PropertiesUtils.getProperty("image.server"); %>
+<%
+	String imageRootPath = PropertiesUtils.getProperty("image.server");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +22,17 @@
 <meta name="keywords" content="" />
 <script type="application/x-javascript">
 	
+	
+	
+	
+	
+	
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+
+
+
+
 
 </script>
 <!---->
@@ -78,51 +90,72 @@
 					<div class="clearfix"></div>
 				</div>
 
-				<div class="col-md-7 events-bottom2 animated wow fadeInDown"
-					data-wow-duration="1000ms" data-wow-delay="500ms">
-					<h3>Top Shop：${hotShop.shopName}</h3>
-					<label><i class="glyphicon glyphicon-menu-up"></i></label>
-					<p>address：${hotShop.address}<br>${hotShop.introduction}</p>
-					<div class="read-more">
-						<a class="link link-yaku" href="http://localhost:9090/client/RecipeListServlet?shopid=${hotShop.shopid}"> <span>R</span><span>e</span><span>a</span><span>d</span>
-							<span>M</span><span>o</span><span>r</span><span>e</span>
-						</a>
+				<c:if test="${not empty hotShop}">
+					<div class="col-md-7 events-bottom2 animated wow fadeInDown"
+						data-wow-duration="1000ms" data-wow-delay="500ms">
+						<h3>Top Shop：${hotShop.shopName}</h3>
+						<label><i class="glyphicon glyphicon-menu-up"></i></label>
+						<p>
+							address：${hotShop.address}<br>${hotShop.introduction}</p>
+						<div class="read-more">
+							<a class="link link-yaku"
+								href="http://localhost:9090/client/RecipeListServlet?shopid=${hotShop.shopid}">
+								<span>R</span><span>e</span><span>a</span><span>d</span> <span>M</span><span>o</span><span>r</span><span>e</span>
+							</a>
+						</div>
 					</div>
-				</div>
-				<div class="col-md-5 events-bottom1 animated wow fadeInUp"
-					data-wow-duration="1000ms" data-wow-delay="500ms">
-					<a href="http://localhost:9090/client/RecipeListServlet?shopid=${hotShop.shopid}"><img src="<%=imageRootPath %>${hotShop.shopPic}" alt=""
-						class="img-responsive"></a>
-				</div>
-				<div class="clearfix"></div>
+					<div class="col-md-5 events-bottom1 animated wow fadeInUp"
+						data-wow-duration="1000ms" data-wow-delay="500ms">
+						<a
+							href="http://localhost:9090/client/RecipeListServlet?shopid=${hotShop.shopid}"><img
+							src="<%=imageRootPath %>${hotShop.shopPic}" alt=""
+							class="img-responsive"></a>
+					</div>
+					<div class="clearfix"></div>
+				</c:if>
 
-				<c:forEach items="${list}" var="shop">
-
+				<c:if test="${not empty  list}">
+					<c:forEach items="${list}" var="shop">
+						<div class="events-bottom">
+							<div class="col-md-5 events-bottom1 animated wow fadeInRight"
+								data-wow-duration="1000ms" data-wow-delay="500ms">
+								<a
+									href="http://localhost:9090/client/RecipeListServlet?shopid=${shop.shopid}"><img
+									src="<%=imageRootPath %>${shop.shopPic}" alt=""
+									class="img-responsive"></a>
+							</div>
+							<div class="col-md-7 events-bottom2 animated wow fadeInLeft"
+								data-wow-duration="1000ms" data-wow-delay="500ms">
+								<h3>${shop.shopName}</h3>
+								<label><i class="glyphicon glyphicon-menu-up"></i></label>
+								<p>
+									address：${hotShop.address}<br>${hotShop.introduction}</p>
+								<div class="read-more">
+									<a class="link link-yaku"
+										href="http://localhost:9090/client/RecipeListServlet?shopid=${shop.shopid}">
+										<span>R</span><span>e</span><span>a</span><span>d</span> <span>M</span><span>o</span><span>r</span><span>e</span>
+									</a>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</c:forEach>
+				</c:if>
+				<c:if test="${empty  list}">
 					<div class="events-bottom">
 						<div class="col-md-5 events-bottom1 animated wow fadeInRight"
-							data-wow-duration="1000ms" data-wow-delay="500ms">
-							<a
-								href="http://localhost:9090/client/RecipeListServlet?shopid=${shop.shopid}"><img
-								src="<%=imageRootPath %>${shop.shopPic}" alt="" class="img-responsive"></a>
-						</div>
+							data-wow-duration="1000ms" data-wow-delay="500ms"></div>
 						<div class="col-md-7 events-bottom2 animated wow fadeInLeft"
 							data-wow-duration="1000ms" data-wow-delay="500ms">
-							<h3>${shop.shopName}</h3>
-							<label><i class="glyphicon glyphicon-menu-up"></i></label>
-							<p>address：${hotShop.address}<br>${hotShop.introduction}</p>
-							<div class="read-more">
-								<a class="link link-yaku"
-									href="http://localhost:9090/client/RecipeListServlet?shopid=${shop.shopid}">
-									<span>R</span><span>e</span><span>a</span><span>d</span> <span>M</span><span>o</span><span>r</span><span>e</span>
-								</a>
-							</div>
+							<h3>data is not empty</h3>
 						</div>
 						<div class="clearfix"></div>
-				</c:forEach>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>
-	</div>
+
 
 	<!--footer-->
 	<div class="footer">

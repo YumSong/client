@@ -36,8 +36,11 @@ public class ShopListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<ShopEntity> shopList = shopService.listShop();
-		Random random = new Random();
-		ShopEntity hotShop = shopList.get((random.nextInt(shopList.size())));
+		ShopEntity hotShop = null;
+		if(shopList!=null&&shopList.size()!=0) {
+			Random random = new Random();
+			hotShop = shopList.get((random.nextInt(shopList.size())));
+		}
 		request.setAttribute("list", shopList);
 		request.setAttribute("hotShop", hotShop);
 		request.getRequestDispatcher("shops.jsp").forward(request,response);

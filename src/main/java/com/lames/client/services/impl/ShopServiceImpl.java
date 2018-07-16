@@ -26,7 +26,7 @@ public class ShopServiceImpl implements IShopService {
 		List<ShopEntity> results = new ArrayList<ShopEntity>();
 		if (shops.isEmpty())
 			return null;
-		if (shopIds.isEmpty())
+		if (shopIds==null)
 			return null;
 		for (ShopEntity entity : shops) {
 			for (Integer shopId : shopIds) {
