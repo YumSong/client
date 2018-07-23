@@ -17,8 +17,8 @@
 
 	<table>
 		<tr>
-			<td width="20%"><div>
-					<div></td>
+			<td width="20%">
+					</td>
 			<td width="70%">
 				<div align="center">
 					<table align="center" border=1px>
