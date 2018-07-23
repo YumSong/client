@@ -1,10 +1,14 @@
-package com.lames.client.model;
+package com.lames.client.model1;
 
 import java.io.Serializable;
 
+import com.jake.annotation.Column;
+import com.jake.annotation.Entity;
+import com.jake.annotation.ID;
+import com.jake.annotation.Sequence;
 
-
-public class ShopEntity implements Serializable {
+@Entity("shop")
+public class NewShopEntity implements Serializable {
 	// create table shop(
 	// shop_id number primary key --店鋪id
 	// ,shop_name NVARCHAR2(255) --店名
@@ -17,23 +21,34 @@ public class ShopEntity implements Serializable {
 	// ,address NVARCHAR2(255) --店鋪地址
 	// );
 
-
+	@ID
+	@Sequence("S_shop")
+	@Column("shop_id")
 	private Integer shopid;
+	@Column("shop_name")
 	private String shopName;
+	@Column("service_starttime")
 	private long serviceStarttime;
+	@Column("service_endtime")
 	private long serviceEndtime;
+	@Column("service_range")
 	private Integer serviceRangeNumber;
+	@Column("distribution_cost")
 	private Integer distributionCost;
+	@Column("shop_pic")
 	private String shopPic;
+	@Column("business_pic")
 	private String businessPic;
+	@Column("address")
 	private String address;
+	@Column("introduction")
 	private String introduction;
 	
 
-	public ShopEntity() {
+	public NewShopEntity() {
 	}
 
-	public ShopEntity(Integer shopid, String shopName, long serviceStarttime, long serviceEndtime,
+	public NewShopEntity(Integer shopid, String shopName, long serviceStarttime, long serviceEndtime,
 			Integer serviceRangeNumber, Integer distributionCost, String shopPic, String businessPic, String address,String introduction) {
 		super();
 		this.shopid = shopid;
@@ -83,7 +98,7 @@ public class ShopEntity implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ShopEntity other = (ShopEntity) obj;
+		NewShopEntity other = (NewShopEntity) obj;
 		if (address == null) {
 			if (other.address != null)
 				return false;

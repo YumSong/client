@@ -1,16 +1,13 @@
 package com.lames.client.utils;
 
-import org.apache.commons.dbcp2.BasicDataSource;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- * @author HONGTO
- * @date 7/11/2018 9:28 AM
- */
-public class DbPoolUtils {
+import javax.sql.DataSource;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+
+public class DbUtil {
 	public static final String url = "jdbc:oracle:thin:@localhost:1521:xe";
 	public static final String username = "system";
 	public static final String password = "123456";
@@ -60,4 +57,9 @@ public class DbPoolUtils {
 			return null;
 		}
 	}
+	
+	public static DataSource getDataSource() {
+		return ds;
+	}
+
 }

@@ -8,10 +8,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.jake.core.SqlSessionFactory;
 import com.lames.client.dao.impl.RecipeDaoImpl;
 import com.lames.client.model.RecipeEntity;
 
 public class IRecipeDaoTest {
+	
 
 	private IRecipeDao recipeDao;
 

@@ -6,6 +6,14 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>Archetype Created Web Application</display-name>
 	<filter>
+        <filter-name>DispatcherFilter</filter-name>
+        <filter-class>com.jake.webmvc.core.DispatcherFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>DispatcherFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	<filter>
 		<filter-name>EncodiongFilter</filter-name>
 		<filter-class>com.lames.client.filter.EncodiongFilter</filter-class>
 	</filter>
@@ -17,10 +25,10 @@
 		<servlet-name>ShopListServlet</servlet-name>
 		<servlet-class>com.lames.client.servlet.ShopListServlet</servlet-class>
 	</servlet>
-	<servlet>
-		<servlet-name>RecipeListServlet</servlet-name>
-		<servlet-class>com.lames.client.servlet.RecipeListServlet</servlet-class>
-	</servlet>
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>RecipeListServlet</servlet-name> -->
+<!-- 		<servlet-class>com.lames.client.servlet.RecipeListServlet</servlet-class> -->
+<!-- 	</servlet> -->
 	<servlet-mapping>
 		<servlet-name>ShopListServlet</servlet-name>
 		<url-pattern>/ShopListServlet</url-pattern>
@@ -29,9 +37,9 @@
 	<listener>
 		<listener-class>com.lames.client.listener.ContextAttributeListener</listener-class>
 	</listener>
-	<servlet-mapping>
-		<servlet-name>RecipeListServlet</servlet-name>
-		<url-pattern>/RecipeListServlet</url-pattern>
-	</servlet-mapping>
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>RecipeListServlet</servlet-name> -->
+<!-- 		<url-pattern>/RecipeListServlet</url-pattern> -->
+<!-- 	</servlet-mapping> -->
 
 </web-app>

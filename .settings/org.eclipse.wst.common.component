@@ -5,6 +5,12 @@
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+        <dependent-module archiveName="WebMVC-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/WebMVC/WebMVC">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ORM-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ORM/ORM">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
 		<property name="context-root" value="client"/>
 		<property name="java-output-path" value="/client/target/classes"/>
 	</wb-module>

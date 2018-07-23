@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Document</title>
+     <!-- Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+      <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/ecmascript" src="js/md5.js"></script>
+
+    <style>
+        body{
+            background-color: #C7EDCC;
+            font-family: "microsoft yahei";
+            /*min-width: 800px;*/
+        }
+        img{
+            width: 100%;
+            /*height: 462px;*/
+        }
+        .navbar{
+            /*margin-bottom: -10px;*/
+        }
+        #myppt{
+            margin-top: -20px;
+
+        }
+    </style>
+</head>
+<body>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a data-toggle="modal" data-target="#register" href=""><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+        <li><a data-toggle="modal" data-target="#login" href=""><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+    </ul>
+    <!-- 注册窗口 -->
+    <div id="register" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-title">
+                    <h1 class="text-center">注册</h1>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group" action="register" id="registForm">
+                            <div class="form-group">
+                                <label for="">用户名</label>
+                                <input id="regName" class="form-control" type="text" placeholder="6-15位字母或数字" >
+                                <span id="ts" onblur="checkRegName()"></span>				
+                            </div>
+                            <div class="form-group">
+                                <label for="">密码</label>
+                                <input id="regPwd" class="form-control" type="password" placeholder="至少6位字母或数字" >
+                                				
+                            </div>
+                            <div class="form-group">
+                                <label for="">再次输入密码</label>
+                                <input id="repPwd" class="form-control" type="password" placeholder="至少6位字母或数字" >
+                                				
+                            </div>
+                            <div class="text-right">
+                                <button class="btn btn-primary" disabled="disabled" type="button"  id="reg-btn">提交</button>
+                                <button class="btn btn-danger" type="reset"  id="res">取消</button>
+                            </div>
+                            <a href="" data-toggle="modal" data-dismiss="modal" data-target="#login">已有账号？点我登录</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 登录窗口 -->
+    <div id="login" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-title">
+                    <h1 class="text-center">登录</h1>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group" action="login" id="login"  name="login" method="POST">
+                            <div class="form-group">
+                                <label for="">用户名</label>
+                                <input class="form-control" type="text" placeholder="" id="name" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="">密码</label>
+                                <input class="form-control" type="password" placeholder="" id="password" name="password" >
+                            </div>
+                            <div class="text-right">
+                                <button class="btn btn-primary" type="submit" disabled="disabled"  id="login-btn" >登录</button>
+                                <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                            </div>
+                            <a href="" data-toggle="modal" data-dismiss="modal" data-target="#register">还没有账号？点我注册</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript">
+    <!--校验注册输入 -->
+    $(document).ready(function(){
+        //为表单的必填文本框添加提示信息（选择form中的所有后代input元素）
+        $("form :input.form-control").each(function () {
+            //通过jquery api：$("HTML字符串") 创建jquery对象
+            var $required = $("<strong class='high'>*</strong>");
+            
+            //添加到this对象的父级对象下
+            $(this).parent().append($required);
+        });
+
+
+        //为表单元素添加失去焦点事件
+        $("form :input").blur(function(){
+            var $parent = $(this).parent();
+            $parent.find(".msg").remove(); //删除以前的提醒元素（find()：查找匹配元素集中元素的所有匹配元素）
+            //验证姓名
+            if($(this).is("#regName")){
+                var nameVal = $.trim(this.value); 
+                var regName = /[~#^$@%&!*()<>:;'"{}【】  ]/;
+                
+                if(nameVal == "" || nameVal.length < 6 || regName.test(nameVal)){
+                    var errorMsg = " 姓名非空，长度6位以上，不包含特殊字符！";
+                    //class='msg onError' 中间的空格是层叠样式的格式
+                    $parent.append("<span class='msg onError' style='color:red'>" + errorMsg + "</span>");
+                    
+                    
+                    
+                }else{
+                    $.ajax({
+                                url:"checkName?name=" + nameVal, //要处理的页面
+								//ContentType: 'application/x-www-form-urlencoded;charset-UTF-8',
+                                type:"GET",  //提交方式
+                                //dataType: 'json',
+                                //processData: false,
+                                //async:true,
+                                success: function(data){  //回调函数，data为形参，是从login-cl.php页面返回的值
+                                    if(parseInt(data) == 200)//trim()去空格
+                                    {
+                                        var okMsg=" 用户名正确";
+                                        $parent.find(".high").remove();
+                                        $('#reg-btn').removeAttr("disabled");
+                                        $parent.append("<span class='msg onSuccess' style='color:green'>" + okMsg + "</span>");
+                                        
+                                    }
+                                    else if(parseInt(data) == 403)
+                                    {
+                                        var errorMsg = " 用户已存在";
+                                        $('#reg-btn').attr("disabled", "disabled");
+                                        //class='msg onError' 中间的空格是层叠样式的格式
+                                        $parent.append("<span class='msg onError' style='color:red'>" + errorMsg + "</span>");
+                                       
+                                    }
+                                }
+                            }); 
+                    
+                    
+                }
+            }
+            //验证密码
+            if($(this).is("#regPwd")){
+                var regPwdVal = $.trim(this.value);
+                var regPass = /[~#^$@%&!*()<>:;'"{}【】  ]/;
+                if(regPwdVal== "" || regPwdVal.length < 6 ||regPass.test(regPwdVal)){
+                    var errorMsg = " 密码不能为空，长度6位以上，不包含特殊字符！";
+                    $('#reg-btn').attr("disabled", "disabled");
+                    $parent.append("<span class='msg onError' style='color:red'>" + errorMsg + "</span>");
+                    
+                    
+                }
+                else{
+                    var okMsg=" 输入正确";
+                    $('#reg-btn').removeAttr("disabled");
+                    $parent.find(".high").remove();
+                    $parent.append("<span class='msg onSuccess' style='color:green'>" + okMsg + "</span>");
+                   
+                }
+            }
+            //验证两次输入的密码是否相同
+            if($(this).is("#repPwd")){
+//                let repPwd=$("#repPwd").val();
+//                let regPwd=$("#regPwd").val();
+                var password = document.getElementById("regPwd").value;
+                var repassword = document.getElementById("repPwd").value;
+                
+                if(password!=repassword){
+                    var errorMsg = " 重复密码不正确";
+                    $('#reg-btn').attr("disabled", "disabled");
+                    $parent.append("<span class='msg onError' style='color:red'>" + errorMsg + "</span>");
+                    
+                  
+                }
+                else{
+                    var okMsg=" 输入正确";
+                    $('#reg-btn').removeAttr("disabled");
+                    $parent.find(".high").remove();
+                    $parent.append("<span class='msg onSuccess' style='color:green'>" + okMsg + "</span>"); 
+                   
+                }
+                
+            }
+            //验证登录名是否为空
+            if($(this).is("#name")){
+                var loginNameVal = $.trim(this.value);
+                if(loginNameVal== "" || loginNameVal.length == 0){
+                    var errorMsg = "登录名不能为空";
+                    $('#login-btn').attr("disabled", "disabled");
+                    $parent.append("<span class='msg onError' style='color:red'>" + errorMsg + "</span>");
+                    return;
+
+                }
+                else{
+                    var okMsg="";
+                    $('#login-btn').removeAttr("disabled");
+                    $parent.find(".high").remove();
+                    $parent.append("<span class='msg onSuccess' style='color:green'>" + okMsg + "</span>");
+
+                   
+                }
+            }
+            
+            //验证密码输入是否为空
+            if($(this).is("#password")){
+                var pwdVal = $.trim(this.value);
+                if(pwdVal== "" || pwdVal.length==0){
+                    var errorMsg = "密码不能为空";
+                    $('#login-btn').attr("disabled", "disabled");
+                    $parent.append("<span class='msg onError' style='color:red'>" + errorMsg + "</span>");
+                    return;
+
+                    
+                }
+                else{
+                    var okMsg="";
+                    $('#login-btn').removeAttr("disabled");
+                    $parent.find(".high").remove();
+                    $parent.append("<span class='msg onSuccess' style='color:green'>" + okMsg + "</span>");
+
+                   
+                }
+            }
+            
+        }).keyup(function(){
+            //triggerHandler 防止事件执行完后，浏览器自动为标签获得焦点
+            $(this).triggerHandler("blur"); 
+        }).focus(function(){
+            $(this).triggerHandler("blur");
+        });
+        
+
+        
+//         //点击重置按钮时，通过trigger()来触发文本框的失去焦点事件
+//         $("#reg-btn").click(function(){
+//             //trigger 事件执行完后，浏览器会为submit按钮获得焦点
+//             $("form .form-control:input").trigger("blur"); 
+//             var numError = $("form .onError").length;
+//             if(numError){
+//                 return false;
+//             }
+//             alert("注册成功！");
+//         });
+        
+        //点击注册按钮
+         $("#reg-btn").click(function(){
+        	
+        		   if($('#regName').val()==""){
+            		   $('#regName').focus();
+            		   return;
+            	   }
+            	   if($('regPwd').val()==""){
+            		   $('regPwd').focus();
+            		   return;
+            	   }
+            	   let hash = hex_md5($('#regPwd').val());
+            	   $.ajax({
+            		   url:"register",
+            		   type:"POST",
+            		   dataType: 'json',
+            		   data: {"name":$('#regName').val(),"password":hash},
+            		   success: function(data){  //回调函数，data为形参，是从login-cl.php页面返回的值
+                          console.log(data)
+            			   if(parseInt(data) == 200)//trim()去空格
+                           {
+                               var okMsg=" 注册成功";
+                               setTimeout(alert(hash), 300);
+                               
+                               //$(location).attr('href', 'index.jsp');
+                               
+                           }
+                           else if(parseInt(data) == 403)
+                           {
+                               var errorMsg = " 注册失败";
+                               setTimeout(alert(errorMsg), 300);
+                           }
+                       }
+                   }); 
+        		 
+        	 
+           
+    	  
+       });
+        
+        
+        //点击登陆按钮
+       $("#login-btn").click(function(){
+
+    	   $("#login").submit(function(e){
+   			e.preventDefault();
+   		});
+    	   if($('#name').val()==""){
+    		   $('#name').focus();
+    		   return;
+    	   }
+    	   if($('#password').val()==""){
+    		   $('#password').focus();
+    		   return;
+    	   }
+    	   let hash1 = hex_md5($('#password').val());
+    	   $.ajax({
+    		   url:"login?name=" +$('#name').val()+"&password="+hash1,
+    		   type:"POST",
+    		   dataType: 'json',
+    		   processData: false,
+    		   async:true,
+    		   data: {"name":$('#name').val(),"password":hash1},
+    		   success: function(data){  
+                   if(parseInt(data) == 200)
+                   {
+                	   
+                       var okMsg=" 登陆成功";
+                	   setTimeout(alert(okMsg), 300);
+                	   setTimeout(alert('即将跳转到首页'), 500);
+                	   // 拿到cookie的
+                	   // 执行跳转页面的函数
+                	   //$(location).attr('href', 'url');
+                     
+                   }
+                   else if(parseInt(data) == 403)
+                   {
+                	  	
+                       var errorMsg = " 用户名或密码错误";
+                       setTimeout(alert(errorMsg), 300);
+                      
+                   }
+               }
+           }); 
+    		   
+    	  
+       });
+   
+        
+    });
+    
+    
+</script>
+</html>

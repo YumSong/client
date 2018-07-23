@@ -1,9 +1,14 @@
-package com.lames.client.model;
+package com.lames.client.model1;
 
 import java.io.Serializable;
 
+import com.jake.annotation.Column;
+import com.jake.annotation.Entity;
+import com.jake.annotation.ID;
+import com.jake.annotation.Sequence;
 
-public class RecipeEntity implements Serializable {
+@Entity("recipe")
+public class NewRecipeEntity implements Serializable {
 	// create table recipe(
 	// re_id NUMBER PRIMARY KEY --菜品id
 	// ,re_name NVARCHAR2(255) --菜品的名字
@@ -12,24 +17,26 @@ public class RecipeEntity implements Serializable {
 	// ,price number --菜品的價格
 	// ,shop_id number --店鋪的ID
 	// );
-
+	@ID
+	@Sequence("S_recipe")
+	@Column("re_id")
 	private Integer reId;
-
+	@Column("re_name")
 	private String reName;
-
+	@Column("re_pic")
 	private String rePic;
-
+	@Column("detail")
 	private String detail;
-	
+	@Column("price")
 	private Integer price;
-	
+	@Column("shop_id")
 	private Integer shopId;
 
-	public RecipeEntity() {
+	public NewRecipeEntity() {
 		super();
 	}
 
-	public RecipeEntity(Integer reId, String reName, String rePic, String detail, Integer price, Integer shopId) {
+	public NewRecipeEntity(Integer reId, String reName, String rePic, String detail, Integer price, Integer shopId) {
 		super();
 		this.reId = reId;
 		this.reName = reName;
